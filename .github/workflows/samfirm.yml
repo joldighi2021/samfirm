@@ -34,4 +34,4 @@ jobs:
 
     - name: Installing packages.
       run: |
-        install_requirements.sh
+        ./scripts/install_requirements.sh
