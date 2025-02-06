@@ -61,5 +61,5 @@ jobs:
     - name: Installing packages for samfirm.js
       run: |
         sudo apt install git -y
-        sudo git clone https://github.com/DavidArsene/samfirm.js
-        cd samfirm.js && npm install --silent && npm run --silent build
+        sudo git clone https://github.com/DavidArsene/samfirm.js samfirmjs
+        cd samfirmjs && npm install && npm run build
