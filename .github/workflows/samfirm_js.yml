@@ -63,3 +63,4 @@ jobs:
         sudo apt install git -y
         sudo git clone https://github.com/DavidArsene/samfirm.js samfirmjs
         cd samfirmjs && sudo npm install && sudo npm run build
+        samfirm
