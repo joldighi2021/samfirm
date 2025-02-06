@@ -37,6 +37,6 @@ jobs:
       run: |
         sudo bash ./scripts/download_firmware.sh ${{ github.event.inputs.model }} ${{ github.event.inputs.csc }}
 
-    - name: Extracting firmware.
+    - name: Extracting & Compressing firmware.
       run: |
         sudo bash ./scripts/extract_firmware.sh
