@@ -14,10 +14,9 @@ if [ ${#MODEL} -ne 8 ] || [ ${#CSC} -ne 3 ]; then
 fi
 
 # Read IMEIs from imei.txt for the given MODEL
-IMEI=$(grep ",${MODEL}" $(pwd)/scripts/imei.txt | head -n 1 | cut -d ',' -f 1)
-echo "IMEI for $MODEL: $IMEI"
+IMEI_LIST=$(grep "^${MODEL}=" $(pwd)/scripts/imei.txt | cut -d '=' -f2 | tr -d '"' | tr ',' ' ')
 
-if [ -z "$IMEI" ]; then
+if [ -z "$IMEI_LIST" ]; then
     echo "No IMEI found for model $MODEL in imei.txt"
     exit 1
 fi
