@@ -1,0 +1,60 @@
+name: samfirm.js for download Samsung Firmware
+
+on:
+  workflow_dispatch:
+    inputs:
+      model:
+        description: 'Firmware model'
+        required: true
+        default: 'SM-A225F'
+      imei:
+        description: 'Device IMEI'
+        required: true
+        default: '356032730508566'
+      csc:
+        description: 'Firmware CSC code'
+        required: true
+        default: 'BKD'
+      upload_to_telegram:
+        description: 'Upload to Telegram'
+        type: boolean
+        required: true
+        default: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set up build environment
+      run: |
+        sudo apt update
+        DEBIAN_FRONTEND=noninteractive sudo apt install -yq \
+          attr ccache clang ffmpeg golang \
+          libbrotli-dev libgtest-dev libprotobuf-dev libunwind-dev libpcre2-dev \
+          libzstd-dev linux-modules-extra-$(uname -r) lld protobuf-compiler webp \
+          zipalign
+
+    - name: Set up JDK 11
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '11'
+        cache: 'gradle'
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 'latest'
+
+    - name: Set up environment variables
+      run: |
+        echo "MODEL=${{ github.event.inputs.model }}" >> $GITHUB_ENV
+        echo "IMEI=${{ github.event.inputs.imei }}" >> $GITHUB_ENV
+        echo "CSC=${{ github.event.inputs.csc }}" >> $GITHUB_ENV
+          
+    - name: Installing packages for samfirm.js
+      run: |
+        sudo apt install git -y
+        sudo git clone https://github.com/DavidArsene/samfirm.js
+        cd samfirm.js && npm install --silent && npm run --silent build
