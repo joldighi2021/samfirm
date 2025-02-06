@@ -35,5 +35,4 @@ jobs:
 
     - name: Download firmware
       run: |
-        echo "Checking Firmware model: ${{ github.event.inputs.model }} for CSC code: ${{ github.event.inputs.csc }}"
         sudo bash ./scripts/download_firmware.sh ${{ github.event.inputs.model }} ${{ github.event.inputs.csc }}
