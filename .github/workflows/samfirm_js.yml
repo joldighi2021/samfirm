@@ -14,7 +14,7 @@ on:
         description: 'Device IMEI'
         required: true
         default: '356032730508566'
-      csc:
+      region:
         description: 'Firmware CSC code'
         required: true
         default: 'BKD'
@@ -55,12 +55,12 @@ jobs:
     - name: Set up environment variables
       run: |
         echo "MODEL=${{ github.event.inputs.model }}" >> $GITHUB_ENV
+        echo "REGION=${{ github.event.inputs.region }}" >> $GITHUB_ENV
         echo "IMEI=${{ github.event.inputs.imei }}" >> $GITHUB_ENV
-        echo "CSC=${{ github.event.inputs.csc }}" >> $GITHUB_ENV
           
     - name: Installing packages for samfirm.js
       run: |
         sudo apt install git -y
         sudo git clone https://github.com/DavidArsene/samfirm.js samfirmjs
         cd samfirmjs && sudo npm install && sudo npm run build
-        samfirm
+        samfirm -m "$MODEL" -r "$REGION" -i "$IMEI"
