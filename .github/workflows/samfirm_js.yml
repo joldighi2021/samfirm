@@ -64,4 +64,4 @@ jobs:
         # sudo git clone https://github.com/DavidArsene/samfirm.js samfirmjs
         # cd samfirmjs && sudo npm install && sudo npm run build
         sudo npm i -g samfirm
-        samfirm -m "$MODEL" -r "$REGION" -i "$IMEI"
+        samfirm -m $MODEL -r $REGION -i $IMEI
