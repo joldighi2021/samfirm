@@ -10,14 +10,14 @@ on:
         description: 'Firmware model'
         required: true
         default: 'SM-A225F'
-      imei:
-        description: 'Device IMEI'
-        required: true
-        default: '356032730508566'
-      region:
+      csc:
         description: 'Firmware CSC code'
         required: true
         default: 'BKD'
+      imei:
+        description: 'Device IMEI'
+        required: false
+        default: ''
       upload_to_telegram:
         description: 'Upload to Telegram'
         type: boolean
@@ -32,6 +32,10 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v2
 
-    - name: Installing packages.
+    - name: Installing packages
       run: |
         sudo bash ./scripts/install_requirements.sh
+
+    - name: Download firmware
+      run: |
+        sudo bash ./scripts/download_firmware.sh ${{ github.event.inputs.model }} ${{ github.event.inputs.csc }}
