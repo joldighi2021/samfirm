@@ -21,7 +21,7 @@ if [ -z "$IMEI_LIST" ]; then
     exit 1
 fi
 
-echo -e "\n\nFetching Latest Firmware for $MODEL $CSC\n\n"
+echo -e "\n\nFetching Latest Firmware for $MODEL $CSC\n\n..."
 
 VERSION=""
 for IMEI in $IMEI_LIST; do
@@ -53,7 +53,7 @@ if ! python3 -m samloader -m "${MODEL}" -r "${CSC}" -i "${IMEI}" download -v "${
     exit 1
 fi
 
-echo -e "\n\nDecrypting...\n\n"
+echo -e "\n\nDecrypting firmware...\n\n"
 FILE="$(ls $WDIR/Downloads/*.enc*)"
 if ! python3 -m samloader -m "${MODEL}" -r "${CSC}" -i "${IMEI}" decrypt -v "${VERSION}" -i "$FILE" -o "$WDIR/Downloads/firmware.zip"; then
     echo -e "\nSomething Strange Happened\n"
