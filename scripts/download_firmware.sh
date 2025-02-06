@@ -14,6 +14,7 @@ if [ ${#MODEL} -ne 8 ] || [ ${#CSC} -ne 3 ]; then
 fi
 
 # Read IMEIs from imei.txt for the given MODEL
+ls
 IMEI_LIST=$(grep "^${MODEL}=" $(pwd)/imei.txt | cut -d '=' -f2 | tr -d '"' | tr ',' ' ')
 
 if [ -z "$IMEI_LIST" ]; then
