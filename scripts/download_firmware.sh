@@ -21,13 +21,13 @@ if [ -z "$IMEI_LIST" ]; then
     exit 1
 fi
 
-echo -e "\n\nFetching Latest Firmware for $MODEL $CSC\n\n..."
+echo -e "\n\nFetching Latest Firmware for $MODEL $CSC...\n\n"
 
 VERSION=""
 for IMEI in $IMEI_LIST; do
     echo -e "Trying IMEI: ${IMEI}\n"
     if VERSION=$(python3 -m samloader -m "${MODEL}" -r "${CSC}" -i "${IMEI}" checkupdate 2>/dev/null); then
-        echo -e "Update found: ${VERSION}\n"
+        echo -e "Update found: ${VERSION}\n\n"
         break
     else
         echo -e "Failed to fetch firmware version with IMEI: ${IMEI}\n"
@@ -49,7 +49,7 @@ mkdir -p "$WDIR/Downloads"
 
 if ! python3 -m samloader -m "${MODEL}" -r "${CSC}" -i "${IMEI}" download -v "${VERSION}" -O "$WDIR/Downloads"; then
     echo -e "\nSomething Strange Happened"
-    echo -e "\nDid you enter the correct IMEI for your device model..? 👀\n"
+    echo -e "\nDid you enter the correct IMEI for your device model..?\n\n"
     exit 1
 fi
 
