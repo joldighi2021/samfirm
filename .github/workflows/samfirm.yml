@@ -1,4 +1,4 @@
-name: samfirm for download Samsung Firmware
+name: Samsung firmware extractor.
 
 on:
   workflow_dispatch:
@@ -26,13 +26,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check out repository
+    - name: Check out repository.
       uses: actions/checkout@v2
 
-    - name: Installing packages
+    - name: Installing packages.
       run: |
         sudo bash ./scripts/install_requirements.sh
 
-    - name: Download firmware
+    - name: Downloading firmware.
       run: |
         sudo bash ./scripts/download_firmware.sh ${{ github.event.inputs.model }} ${{ github.event.inputs.csc }}
